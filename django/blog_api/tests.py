@@ -6,13 +6,12 @@ from django.contrib.auth.models import User
 
 
 class PostTest(APITestCase):
-
-    def testViewPosts(self):
+    def test_view_posts(self):
         url = reverse('blog_api:list_create')
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def testCreatePost(self):
+    def test_create_post(self):
         self.test_category = Category.objects.create(name='django')
         self.test_user = User.objects.create_superuser(username='test_user', password='123456789',)
 
@@ -23,7 +22,7 @@ class PostTest(APITestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def testPostUpdate(self):
+    def test_post_update(self):
         client = APIClient()
 
         self.test_category = Category.objects.create(name='django')
