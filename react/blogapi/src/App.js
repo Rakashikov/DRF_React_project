@@ -1,7 +1,7 @@
 import React from "react";
 import './App.css';
-import Posts from './components/Posts';
-import PostLoadingComponent from './components/PostLoading';
+import Posts from './components/posts';
+import PostLoadingComponent from './components/postLoading';
 
 export default function App() {
     const PostLoading = PostLoadingComponent(Posts);

@@ -3,8 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import App from './App';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from './components/header';
+import Footer from './components/footer';
+import Register from './components/register';
+import Login from './components/login';
+import Logout from './components/logout';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -14,6 +17,9 @@ root.render (
             <Header />
             <Routes>
                 <Route exact path="/" element={<App />} />
+                <Route exact path="/register" element={<Register />} />
+                <Route exact path="/login" element={<Login />} />
+                <Route exact path="/logout" element={<Logout />} />
             </Routes>
             <Footer />
         </React.StrictMode>
