@@ -1,6 +1,6 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import {Card,CardContent,CardMedia,Grid,Typography,Container} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
+import {Card, CardContent, CardMedia, Container, Grid, Link, Typography} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     cardMedia: {
@@ -29,8 +29,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Posts = (props) => {
-    const { posts } = props;
+    const {posts} = props;
     const classes = useStyles();
+    console.log(posts);
     if (!posts || posts.length === 0) return <p>No posts, sorry</p>;
     return (
         <React.Fragment>
@@ -38,33 +39,39 @@ const Posts = (props) => {
                 <Grid container spacing={5} alignItems="flex-end">
                     {posts.map((post) => {
                         return (
-                        <Grid item key={post.id} xs={12} md={4}>
-                            <Card className={classes.card}>
-                                <CardMedia
-                                    className={classes.cardMedia}
-                                    image="https://source.unsplash.com/random"
-                                    title="Image title"
-                                />
-                                <CardContent className={classes.cardContent}>
-                                    <Typography
-                                        gutterBottom
-                                        variant="h5"
-                                        component="h2"
-                                        className={classes.postTitle}
+                            <Grid item key={post.id} xs={12} md={4}>
+                                <Card className={classes.card}>
+                                    <Link
+                                        color="textPrimary"
+                                        href={'post/' + post.slug}
+                                        className={classes.link}
                                     >
-                                        {post.title.substring(0, 50)}...
-                                    </Typography>
-                                    <div className={classes.postText}>
+                                        <CardMedia
+                                            className={classes.cardMedia}
+                                            image="https://source.unsplash.com/random"
+                                            title="Image title"
+                                        />
+                                    </Link>
+                                    <CardContent className={classes.cardContent}>
                                         <Typography
-                                            color = "textPrimary"
-                                        ></Typography>
-                                        <Typography color = "textSecondary">
-                                            {post.excerpt.substring(0, 60)}...
+                                            gutterBottom
+                                            variant="h5"
+                                            component="h2"
+                                            className={classes.postTitle}
+                                        >
+                                            {post.title.substring(0, 50)}...
                                         </Typography>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        </Grid>
+                                        <div className={classes.postText}>
+                                            <Typography
+                                                color="textPrimary"
+                                            ></Typography>
+                                            <Typography color="textSecondary">
+                                                {post.excerpt.substring(0, 60)}...
+                                            </Typography>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
                         );
                     })}
                 </Grid>
@@ -73,4 +80,4 @@ const Posts = (props) => {
     );
 }
 
-export default Posts;
+    export default Posts;
