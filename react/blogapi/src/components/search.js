@@ -1,52 +1,64 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import axiosInstance from "../axios";
+
 import {makeStyles} from "@material-ui/core/styles";
 import {Card, CardContent, CardMedia, Container, Grid, Link, Typography} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     cardMedia: {
-        paddingTop: "56.25%", // 16:9
+        paddingTop: '56.25%', // 16:9
     },
     link: {
         margin: theme.spacing(1, 1.5),
     },
     cardHeader: {
-        backgroundColor: theme.palette.type === "light"
-            ? theme.palette.grey[200]
-            : theme.palette.grey[700],
+        backgroundColor:
+            theme.palette.type === 'light'
+                ? theme.palette.grey[200]
+                : theme.palette.grey[700],
     },
     postTitle: {
-        fontSize: "16px",
-        textAlign: "left",
+        fontSize: '16px',
+        textAlign: 'left',
     },
     postText: {
-        display: "flex",
-        justifyContent: "left",
-        alignItems: "baseline",
-        fontSize: "12px",
-        textAlign: "left",
+        display: 'flex',
+        justifyContent: 'left',
+        alignItems: 'baseline',
+        fontSize: '12px',
+        textAlign: 'left',
         marginBottom: theme.spacing(2),
     },
 }));
 
-const Posts = (props) => {
-    const {posts} = props;
+const Search = () => {
     const classes = useStyles();
-    console.log(posts);
-    // if not posts or posts.length === 0 or post.detail === "Authentication credentials were not provided." return <p>No posts, sorry</p>;
+    const search = 'search';
+    const [appState, setAppState] = useState({
+        search: '',
+        posts: [],
+    });
 
-    if (!posts || posts.length === 0 || posts.detail === "Authentication credentials were not provided.") return <p>No
-        posts, sorry</p>;
+    useEffect(() => {
+        axiosInstance.get(search + '/' + window.location.search).then((res) => {
+            const allPosts = res.data;
+            setAppState({posts: allPosts});
+            console.log(res.data);
+        });
+    }, [setAppState]);
+
     return (
         <React.Fragment>
             <Container maxWidth="md" component="main">
                 <Grid container spacing={5} alignItems="flex-end">
-                    {posts.map((post) => {
+                    {appState.posts.map((post) => {
                         return (
+                            // Enterprise card is full width at sm breakpoint
                             <Grid item key={post.id} xs={12} md={4}>
                                 <Card className={classes.card}>
                                     <Link
                                         color="textPrimary"
-                                        href={'post/' + post.slug}
+                                        href={'/post/' + post.slug}
                                         className={classes.link}
                                     >
                                         <CardMedia
@@ -58,18 +70,15 @@ const Posts = (props) => {
                                     <CardContent className={classes.cardContent}>
                                         <Typography
                                             gutterBottom
-                                            variant="h5"
+                                            variant="h6"
                                             component="h2"
                                             className={classes.postTitle}
                                         >
-                                            {post.title.substring(0, 50)}...
+                                            {post.title.substr(0, 50)}...
                                         </Typography>
                                         <div className={classes.postText}>
-                                            <Typography
-                                                color="textPrimary"
-                                            ></Typography>
                                             <Typography color="textSecondary">
-                                                {post.excerpt.substring(0, 60)}...
+                                                {post.excerpt.substr(0, 40)}...
                                             </Typography>
                                         </div>
                                     </CardContent>
@@ -81,6 +90,5 @@ const Posts = (props) => {
             </Container>
         </React.Fragment>
     );
-}
-
-export default Posts;
+};
+export default Search;

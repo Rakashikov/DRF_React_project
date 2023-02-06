@@ -1,6 +1,6 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import {Typography, Link, Box, Grid, Container} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
+import {Box, Container, Grid, Link, Typography} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     footer: {
@@ -27,6 +27,7 @@ function Copyright() {
         </Typography>
     );
 }
+
 const footers = [
     {
         title: "Company",
@@ -70,7 +71,7 @@ export default function Footer() {
                     ))}
                 </Grid>
                 <Box mt={5}>
-                    <Copyright />
+                    <Copyright/>
                 </Box>
             </Container>
         </React.Fragment>

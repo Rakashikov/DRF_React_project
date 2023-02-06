@@ -1,6 +1,6 @@
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
-from django.conf import settings
 from django.utils.text import slugify
 
 
@@ -12,7 +12,6 @@ class Category(models.Model):
 
 
 class Post(models.Model):
-
     class PostObjects(models.Manager):
         def get_queryset(self):
             return super().get_queryset().filter(status='published')
@@ -40,7 +39,7 @@ class Post(models.Model):
         return self.title
 
     def save(
-        self, force_insert=False, force_update=False, using=None, update_fields=None
+            self, force_insert=False, force_update=False, using=None, update_fields=None
     ):
         if not self.slug:
             self.slug = slugify(self.title)

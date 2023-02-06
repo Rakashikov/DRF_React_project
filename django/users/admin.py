@@ -1,9 +1,9 @@
 from django.contrib import admin
-from users.models import NewUser
 from django.contrib.auth.admin import UserAdmin
-from django.forms import TextInput, Textarea, CharField
 from django.db import models
-from django import forms
+from django.forms import TextInput, Textarea
+
+from users.models import NewUser
 
 
 class UserAdminConfig(UserAdmin):

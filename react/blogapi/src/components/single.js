@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import axiosInstance from "../axios";
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 //Material UI
-import { makeStyles } from "@material-ui/core/styles";
-import {CssBaseline,Container,Typography} from "@material-ui/core";
-import posts from "./posts";
+import {makeStyles} from "@material-ui/core/styles";
+import {Container, CssBaseline, Typography} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -22,14 +21,14 @@ export default function Single() {
     const [data, setData] = useState({posts: []});
 
     useEffect(() => {
-        axiosInstance.get(slug).then((res) => {
+        axiosInstance.get('posts/?slug=' + slug).then((res) => {
             setData({posts: res.data});
         });
-    }, [setData]);
+    }, [setData]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    return(
+    return (
         <Container component="main" maxWidth="md">
-            <CssBaseline />
+            <CssBaseline/>
             <div className={classes.paper}></div>
             <div className={classes.heroContent}>
                 <Container maxWidth="sm">
